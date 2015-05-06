@@ -89,7 +89,7 @@ private:
 /*
 || @changelog
 || | 1.7 2010-03-08- Alexander Brevig : Fixed a bug, constructor ran update,
-thanks to René Pressé
+thanks to RenÃ© PressÃ©
 || | 1.6 2010-03-08- Alexander Brevig : Added timeInCurrentState() , requested
 by sendhb
 || | 1.5 2009-11-29- Alexander Brevig : Fixed a bug, introduced by the below
