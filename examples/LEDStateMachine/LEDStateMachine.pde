@@ -53,6 +53,8 @@ operation'
 #include "Tlc5940.h"
 #include "tlc_fades.h"
 
+#define UP 1
+#define DOWN -1
 /** program config and constants */
 // WIRE THIS DIRECTLY FROM GROUND TO PIN
 const byte BUTTON_PIN = 2;
@@ -154,15 +156,18 @@ void fadeUpdate() { tlc_updateFades(); }
 ///immediateTransition to circle state
 void flashUpdate() {
   for (int times = 0; times < FLASH_ITERATIONS; times++) {
-    setAll(LOW);
+    setAll(LOW, UP);
     delay(FLASH_INTERVAL / 2);
-    setAll(HIGH);
+    setAll(HIGH, DOWN);
     delay(FLASH_INTERVAL / 2);
   }
   stateMachine.immediateTransitionTo(circleMotion);
 }
 /// helper for flash state, set all LEDs either fully off or fully on
-void setAll(boolean state) {
+void setAll(boolean state, char direction) {
+  if (direction != UP && direction != DOWN) {
+    direction = UP;
+  }
   Tlc.clear();
   for (TLC_CHANNEL_TYPE channel = 0; channel < NUM_TLCS * 16;
        channel += direction) {
