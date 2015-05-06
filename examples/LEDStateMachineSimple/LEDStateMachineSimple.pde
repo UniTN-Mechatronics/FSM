@@ -1,8 +1,8 @@
-//http://playground.arduino.cc/uploads/Code/FSM.zip
+//http://github.com/UniTN-Mechatronics/FSM
 #include <FiniteStateMachine.h>
-//http://playground.arduino.cc/uploads/Code/Button.zip
+//http://github.com/UniTN-Mechatronics/Button
 #include <Button.h>
-//http://playground.arduino.cc/uploads/Code/LED.zip
+//http://github.com/UniTN-Mechatronics/LED
 #include <LED.h>
 
 const byte NUMBER_OF_STATES = 4; //how many states are we cycling through?
