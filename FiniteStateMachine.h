@@ -46,7 +46,10 @@
 class State {
 public:
   State(void (*updateFunction)());
-  State(void (*enterFunction)(), void (*updateFunction)(),
+  State(int id, void (*updateFunction)());
+  State(int id, void (*enterFunction)(), void (*updateFunction)(),
+        void (*exitFunction)());
+  void init(int id, void (*enterFunction)(), void (*updateFunction)(),
         void (*exitFunction)());
   // State( byte newId, void (*enterFunction)(), void (*updateFunction)(), void
   // (*exitFunction)() );
@@ -55,12 +58,14 @@ public:
   void enter();
   void update();
   void exit();
+  int id();
 
 private:
   // byte id;
   void (*userEnter)();
   void (*userUpdate)();
   void (*userExit)();
+  int _id;
 };
 
 // define the finite state machine functionality

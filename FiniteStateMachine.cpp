@@ -31,13 +31,21 @@
 
 // FINITE STATE
 State::State(void (*updateFunction)()) {
-  userEnter = 0;
-  userUpdate = updateFunction;
-  userExit = 0;
+  init(0, 0, updateFunction, 0);
 }
 
-State::State(void (*enterFunction)(), void (*updateFunction)(),
+State::State(int id, void (*updateFunction)()) {
+  init(id, 0, updateFunction, 0);
+}
+
+State::State(int id, void (*enterFunction)(), void (*updateFunction)(),
              void (*exitFunction)()) {
+  init(id, enterFunction, updateFunction, exitFunction);
+}
+
+void State::init(int id, void (*enterFunction)(), void (*updateFunction)(),
+             void (*exitFunction)()) {
+  _id = id;
   userEnter = enterFunction;
   userUpdate = updateFunction;
   userExit = exitFunction;
@@ -63,6 +71,8 @@ void State::exit() {
     userExit();
   }
 }
+
+int State::id() { return _id; }
 // END FINITE STATE
 
 // FINITE STATE MACHINE
