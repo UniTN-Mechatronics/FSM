@@ -77,37 +77,31 @@ int State::id() { return _id; }
 
 // FINITE STATE MACHINE
 FiniteStateMachine::FiniteStateMachine(State &current) {
-  needToTriggerEnter = true;
   currentState = nextState = &current;
   stateChangeTime = 0;
 }
 
 FiniteStateMachine &FiniteStateMachine::update() {
-  // simulate a transition to the first state
-  // this only happens the first time update is called
-  if (needToTriggerEnter) {
-    currentState->enter();
-    needToTriggerEnter = false;
-  } else {
-    if (currentState != nextState) {
-      immediateTransitionTo(*nextState);
-    }
-    currentState->update();
+  if (currentState != nextState) {
+    currentState->exit();
+    currentState = nextState;
+    currentState->enter();    
+    stateChangeTime = millis();
   }
+  
+  currentState->update();
+  
   return *this;
 }
 
 FiniteStateMachine &FiniteStateMachine::transitionTo(State &state) {
   nextState = &state;
-  stateChangeTime = millis();
   return *this;
 }
 
 FiniteStateMachine &FiniteStateMachine::immediateTransitionTo(State &state) {
-  currentState->exit();
   currentState = nextState = &state;
   currentState->enter();
-  stateChangeTime = millis();
   return *this;
 }
 

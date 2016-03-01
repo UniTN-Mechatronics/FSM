@@ -83,7 +83,6 @@ public:
   unsigned long timeInCurrentState();
 
 private:
-  bool needToTriggerEnter;
   State *currentState;
   State *nextState;
   unsigned long stateChangeTime;
